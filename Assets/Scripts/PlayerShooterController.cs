@@ -5,21 +5,17 @@ using UnityEngine;
 public class PlayerShooterController : MonoBehaviour
 {
     [SerializeField] private float _fireRate;
-    private float _lastShot;
+    private float _timer;
     [SerializeField] private GameObject _bulletGO;
     [SerializeField] private Transform _shootingPoint;
-
-    private bool CanShoot()
-    {
-        return Time.time - _lastShot >= _fireRate;
-    }
-
     
     private void Shoot()
     {
+        _timer += Time.time;
         if (Input.GetMouseButton(0))
         {
             Instantiate(_bulletGO, _shootingPoint.position, Quaternion.identity);
+            _timer = 0f;
         }
     }
 
